@@ -1,6 +1,5 @@
 ﻿using AppWinFormCRUD.Data.Tables;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
@@ -187,16 +186,31 @@ namespace AppWinFormCRUD.UI
                         }
                         else
                         {
-                            cont.Persons.Add(person);
-                            cont.SaveChanges();
-                            MessageBox.Show("Данные в базу водителей успешно добавлены");
+                           cont.Persons.Add(person);
+                           cont.SaveChanges();
+                           MessageBox.Show("Данные в базу водителей успешно добавлены");
                         }
                     }
                     else
                     {
-                        cont.Entry(person).State = EntityState.Modified;
-                        cont.SaveChanges();
-                        MessageBox.Show("Данные в базе водителей успешно обновлены");
+                        bool similar1 = false;
+                        foreach (Crew item in cont.Crews.ToList<Crew>())
+                        {
+                            if (item.NamePerson.Equals(person.Name))
+                            {
+                                similar1 = true;
+                            }
+                        }
+                        if (similar1)
+                        {
+                            MessageBox.Show("Водитель состоит в экипаже. Сначала обновите или удалите экипаж");
+                        }
+                        else
+                        {
+                            cont.Entry(person).State = EntityState.Modified;
+                            cont.SaveChanges();
+                            MessageBox.Show("Данные в базе водителей успешно обновлены");
+                        }
                     }
                 }
             }
@@ -252,9 +266,24 @@ namespace AppWinFormCRUD.UI
                     }
                     else 
                     {
-                        cont.Entry(car).State = EntityState.Modified;
-                        cont.SaveChanges();
-                        MessageBox.Show("Данные в базе автомобилей успешно обновлены");
+                        bool similar1 = false;
+                        foreach (Crew item in cont.Crews.ToList<Crew>())
+                        {
+                            if (item.IdNumberCar.Equals(car.IdNumber))
+                            {
+                                similar1 = true;
+                            }
+                        }
+                        if (similar1)
+                        {
+                            MessageBox.Show("Автомобиль состоит в экипаже. Сначала обновите или удалите экипаж");
+                        }
+                        else
+                        {
+                            cont.Entry(car).State = EntityState.Modified;
+                            cont.SaveChanges();
+                            MessageBox.Show("Данные в базе автомобилей успешно обновлены");
+                        }
                     }
                 }
             }
@@ -417,6 +446,12 @@ namespace AppWinFormCRUD.UI
                     person = new Person();
                     ClearPerson();
                 }
+                else if (txtDriverName.Text.Equals("") &&
+                    (!txtDriverAge.Text.Trim().Equals("") || !txtDriverExpAge.Text.Trim().Equals("")))
+                {
+                    MessageBox.Show("Удаление водителя не удалось. ФИО должно быть заполнено");
+                    ClearPerson();
+                }
 
                 if (!txtCarIdNumber.Text.Equals(""))
                 {
@@ -458,6 +493,12 @@ namespace AppWinFormCRUD.UI
 
                     car = new Car();
                 }
+                else if (txtCarIdNumber.Text.Equals("") &&
+                    (!txtCarModel.Text.Trim().Equals("") || !txtCarMileage.Text.Trim().Equals("")))
+                {
+                    MessageBox.Show("Удаление автомобиля не удалось. Госномер должены быть заполнен");
+                    ClearCar();
+                }
 
                 if (!txtCrewDriver.Text.Equals("") && !txtCrewCar.Text.Equals(""))
                 {
@@ -483,6 +524,12 @@ namespace AppWinFormCRUD.UI
                     }
 
                     crew = new Crew();
+                }
+                else if ((txtCrewDriver.Text.Equals("") || txtCrewCar.Text.Equals("")) 
+                    && !txtCrewTransef.Text.Trim().Equals(""))
+                {
+                    MessageBox.Show("Удаление экипажа не удалось. ФИО водителя и госномер должны быть заполнены");
+                    ClearCrew();
                 }
             }
 
