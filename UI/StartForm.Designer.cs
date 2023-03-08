@@ -364,7 +364,7 @@ namespace AppWinFormCRUD.UI
             this.labelCrew.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelCrew.Location = new System.Drawing.Point(146, 541);
             this.labelCrew.Name = "labelCrew";
-            this.labelCrew.Size = new System.Drawing.Size(139, 50);
+            this.labelCrew.Size = new System.Drawing.Size(111, 40);
             this.labelCrew.TabIndex = 21;
             this.labelCrew.Text = "Экипаж";
             this.labelCrew.Click += new System.EventHandler(this.labelCrew_Click);
@@ -453,20 +453,24 @@ namespace AppWinFormCRUD.UI
             // 
             // txtCrewDriver
             // 
+            this.txtCrewDriver.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.txtCrewDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtCrewDriver.FormattingEnabled = true;
             this.txtCrewDriver.Location = new System.Drawing.Point(299, 606);
             this.txtCrewDriver.Name = "txtCrewDriver";
             this.txtCrewDriver.Size = new System.Drawing.Size(276, 37);
+            this.txtCrewDriver.Sorted = true;
             this.txtCrewDriver.TabIndex = 28;
             // 
             // txtCrewCar
             // 
+            this.txtCrewCar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.txtCrewCar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtCrewCar.FormattingEnabled = true;
             this.txtCrewCar.Location = new System.Drawing.Point(299, 650);
             this.txtCrewCar.Name = "txtCrewCar";
             this.txtCrewCar.Size = new System.Drawing.Size(276, 37);
+            this.txtCrewCar.Sorted = true;
             this.txtCrewCar.TabIndex = 29;
             // 
             // txtCrewTransef
