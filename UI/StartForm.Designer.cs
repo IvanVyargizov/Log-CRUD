@@ -30,7 +30,7 @@ namespace AppWinFormCRUD.UI
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.txtDriverName = new System.Windows.Forms.TextBox();
+            this.txtPersonName = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.dataDriverCarCrew = new System.Windows.Forms.DataGridView();
             this.tblPersonId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,15 +83,15 @@ namespace AppWinFormCRUD.UI
             this.label1.TabIndex = 0;
             this.label1.Text = "ФИО :";
             // 
-            // txtDriverName
+            // txtPersonName
             // 
-            this.txtDriverName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtDriverName.Location = new System.Drawing.Point(299, 122);
-            this.txtDriverName.MaxLength = 50;
-            this.txtDriverName.Name = "txtDriverName";
-            this.txtDriverName.Size = new System.Drawing.Size(276, 36);
-            this.txtDriverName.TabIndex = 1;
-            this.txtDriverName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDriverName_KeyPress);
+            this.txtPersonName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtPersonName.Location = new System.Drawing.Point(299, 122);
+            this.txtPersonName.MaxLength = 50;
+            this.txtPersonName.Name = "txtPersonName";
+            this.txtPersonName.Size = new System.Drawing.Size(276, 36);
+            this.txtPersonName.TabIndex = 1;
+            this.txtPersonName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDriverName_KeyPress);
             // 
             // btnSave
             // 
@@ -512,7 +512,7 @@ namespace AppWinFormCRUD.UI
             this.Controls.Add(this.labelPerson);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtDriverName);
+            this.Controls.Add(this.txtPersonName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataDriverCarCrew);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -532,7 +532,7 @@ namespace AppWinFormCRUD.UI
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtDriverName;
+        private System.Windows.Forms.TextBox txtPersonName;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView dataDriverCarCrew;
         private System.Windows.Forms.PictureBox pictureBox1;

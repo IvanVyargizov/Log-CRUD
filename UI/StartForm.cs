@@ -41,7 +41,7 @@ namespace AppWinFormCRUD.UI
 
         private void ClearPerson() 
         {
-            txtDriverName.Text = "";
+            txtPersonName.Text = "";
             txtDriverAge.Text = "";
             txtDriverExpAge.Text = "";
         }
@@ -65,7 +65,7 @@ namespace AppWinFormCRUD.UI
             ClearCar();
             ClearCrew();
 
-            this.ActiveControl = txtDriverName;
+            this.ActiveControl = txtPersonName;
 
             LoadDataCrew();
             LoadDataCar();
@@ -79,7 +79,7 @@ namespace AppWinFormCRUD.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (txtDriverName.Text.Trim().Equals("")
+            if (txtPersonName.Text.Trim().Equals("")
                 && (!txtDriverAge.Text.Trim().Equals("") || !txtDriverExpAge.Text.Trim().Equals("")))
             {
                 MessageBox.Show("Введите ФИО водителя");
@@ -102,7 +102,7 @@ namespace AppWinFormCRUD.UI
 
             else
             {
-                if (!txtDriverName.Text.Trim().Equals(""))
+                if (!txtPersonName.Text.Trim().Equals(""))
                 {
                     SavePerson();
                     ClearPerson();
@@ -130,7 +130,7 @@ namespace AppWinFormCRUD.UI
 
         private void SavePerson()
         {
-            person.Name = txtDriverName.Text.Trim();
+            person.Name = txtPersonName.Text.Trim();
 
             if (txtDriverAge.Text.Trim().Equals("")) person.Age = null;
             else person.Age = int.Parse(txtDriverAge.Text.Trim());
@@ -145,8 +145,11 @@ namespace AppWinFormCRUD.UI
                     bool similar = false;
                     foreach (Person item in cont.Persons.ToList<Person>())
                     {
-                        if (item.Name.Equals(person.Name)) similar = true;
-                        break;
+                        if (item.Name.Equals(person.Name))
+                        {
+                            similar = true;
+                            break;
+                        } 
                     }
 
                     if (similar) MessageBox.Show("Водитель с таким ФИО есть в базе. Уточните ФИО");
@@ -162,8 +165,11 @@ namespace AppWinFormCRUD.UI
                     bool similar1 = false;
                     foreach (Crew item in cont.Crews.ToList<Crew>())
                     {
-                        if (item.NamePerson.Equals(person.Name)) similar1 = true;
-                        break;
+                        if (item.NamePerson.Equals(person.Name)) 
+                        {
+                            similar1 = true;
+                            break;
+                        } 
                     }
                     if (similar1) MessageBox.Show("Водитель состоит в экипаже. Сначала обновите или удалите экипаж");
                     else
@@ -193,8 +199,11 @@ namespace AppWinFormCRUD.UI
                     bool similar = false;
                     foreach (Car item in cont.Cars.ToList<Car>())
                     {
-                        if (item.IdNumber.Equals(car.IdNumber)) similar = true;
-                        break;
+                        if (item.IdNumber.Equals(car.IdNumber)) 
+                        {
+                            similar = true;
+                            break;
+                        } 
                     }
                     if (similar) MessageBox.Show("Автомобиль с таким госномером есть в базе. Уточните госномер");
                     else
@@ -210,8 +219,11 @@ namespace AppWinFormCRUD.UI
                     bool similar1 = false;
                     foreach (Crew item in cont.Crews.ToList<Crew>())
                     {
-                        if (item.IdNumberCar.Equals(car.IdNumber)) similar1 = true;
-                        break;
+                        if (item.IdNumberCar.Equals(car.IdNumber))
+                        {
+                            similar1 = true;
+                            break;
+                        } 
                     }
                     if (similar1) MessageBox.Show("Автомобиль состоит в экипаже. Сначала обновите или удалите экипаж");
                     else
@@ -235,9 +247,22 @@ namespace AppWinFormCRUD.UI
             {
                 if (crew.Id == 0)
                 {
-                    cont.Crews.Add(crew);
-                    cont.SaveChanges();
-                    MessageBox.Show("Данные в базу экипажей успешно добавлены");
+                    bool similarPerson = false;
+                    bool similarIdNumberCar = false;
+                    foreach (Crew item in cont.Crews.ToList<Crew>())
+                    {
+                        if (item.NamePerson.Equals(crew.NamePerson)) similarPerson = true;
+                        if (item.IdNumberCar.Equals(crew.IdNumberCar)) similarIdNumberCar = true;
+                    }
+                    if (similarPerson && !similarIdNumberCar) MessageBox.Show("Выбранный водитель занят. Выберете другого или обновите экипаж");
+                    else if (!similarPerson && similarIdNumberCar) MessageBox.Show("Выбранный автомобиль занят. Выберете другой или обновите экипаж");
+                    else if (similarPerson && similarIdNumberCar) MessageBox.Show("Выбранный экипаж занят. Выберете другой экипаж или обновите существующий");
+                    else
+                    {
+                        cont.Crews.Add(crew);
+                        cont.SaveChanges();
+                        MessageBox.Show("Данные в базу экипажей успешно добавлены");
+                    }  
                 }
                 else
                 {
@@ -262,7 +287,7 @@ namespace AppWinFormCRUD.UI
                     using (var cont = new Data.MyDbContext())
                     {
                         person = cont.Persons.Where(x => x.Id == person.Id).FirstOrDefault();
-                        txtDriverName.Text = person.Name;
+                        txtPersonName.Text = person.Name;
                         txtDriverAge.Text = person.Age.ToString();
                         txtDriverExpAge.Text = person.ExperienceAge.ToString();
                     }
@@ -302,15 +327,18 @@ namespace AppWinFormCRUD.UI
         {
             if (MessageBox.Show("Вы точно хотите удалить данные?", "Сообщение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (!txtDriverName.Text.Equals(""))
+                if (!txtPersonName.Text.Equals(""))
                 {
                     using (var cont = new Data.MyDbContext())
                     {
                         bool similar = false;
                         foreach (Crew item in cont.Crews.ToList<Crew>())
                         {
-                            if (item.NamePerson.Equals(person.Name)) similar = true;
-                            break;
+                            if (item.NamePerson.Equals(person.Name))
+                            {
+                                similar = true;
+                                break;
+                            } 
                         }
                         if (similar) MessageBox.Show("Водитель состоит в экипаже. Сначала обновите или удалите экипаж");
                         else
@@ -331,7 +359,7 @@ namespace AppWinFormCRUD.UI
                     ClearPerson();
                 }
 
-                else if (txtDriverName.Text.Equals("") &&
+                else if (txtPersonName.Text.Equals("") &&
                     (!txtDriverAge.Text.Trim().Equals("") || !txtDriverExpAge.Text.Trim().Equals("")))
                 {
                     MessageBox.Show("Удаление водителя не удалось. ФИО должно быть заполнено");
@@ -345,8 +373,11 @@ namespace AppWinFormCRUD.UI
                         bool similar = false;
                         foreach (Crew item in cont.Crews.ToList<Crew>())
                         {
-                            if (item.IdNumberCar.Equals(car.IdNumber)) similar = true;
-                            break;
+                            if (item.IdNumberCar.Equals(car.IdNumber))
+                            {
+                                similar = true;
+                                break;
+                            } 
                         }
                         if (similar) MessageBox.Show("Автомобиль состоит в экипаже. Сначала обновите или удалите экипаж");
 
