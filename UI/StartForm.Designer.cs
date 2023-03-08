@@ -32,7 +32,7 @@ namespace AppWinFormCRUD.UI
             this.label1 = new System.Windows.Forms.Label();
             this.txtPersonName = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.dataDriverCarCrew = new System.Windows.Forms.DataGridView();
+            this.dataPersonCarCrew = new System.Windows.Forms.DataGridView();
             this.tblPersonId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tblPersonName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tblPersonAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,9 +44,9 @@ namespace AppWinFormCRUD.UI
             this.tblCrewId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tblCrewTransfer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelPerson = new System.Windows.Forms.Label();
-            this.txtDriverAge = new System.Windows.Forms.TextBox();
+            this.txtPersonAge = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtDriverExpAge = new System.Windows.Forms.TextBox();
+            this.txtPersonExpAge = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCarMileage = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,10 +64,10 @@ namespace AppWinFormCRUD.UI
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtCrewDriver = new System.Windows.Forms.ComboBox();
+            this.txtCrewPerson = new System.Windows.Forms.ComboBox();
             this.txtCrewCar = new System.Windows.Forms.ComboBox();
             this.txtCrewTransef = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataDriverCarCrew)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataPersonCarCrew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -91,7 +91,7 @@ namespace AppWinFormCRUD.UI
             this.txtPersonName.Name = "txtPersonName";
             this.txtPersonName.Size = new System.Drawing.Size(276, 36);
             this.txtPersonName.TabIndex = 1;
-            this.txtPersonName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDriverName_KeyPress);
+            this.txtPersonName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPersonName_KeyPress);
             // 
             // btnSave
             // 
@@ -106,12 +106,12 @@ namespace AppWinFormCRUD.UI
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // dataDriverCarCrew
+            // dataPersonCarCrew
             // 
-            this.dataDriverCarCrew.AllowUserToDeleteRows = false;
-            this.dataDriverCarCrew.BackgroundColor = System.Drawing.Color.White;
-            this.dataDriverCarCrew.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataDriverCarCrew.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataPersonCarCrew.AllowUserToDeleteRows = false;
+            this.dataPersonCarCrew.BackgroundColor = System.Drawing.Color.White;
+            this.dataPersonCarCrew.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataPersonCarCrew.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tblPersonId,
             this.tblPersonName,
             this.tblPersonAge,
@@ -122,14 +122,14 @@ namespace AppWinFormCRUD.UI
             this.tblCarMileage,
             this.tblCrewId,
             this.tblCrewTransfer});
-            this.dataDriverCarCrew.Location = new System.Drawing.Point(637, 12);
-            this.dataDriverCarCrew.Name = "dataDriverCarCrew";
-            this.dataDriverCarCrew.ReadOnly = true;
-            this.dataDriverCarCrew.RowHeadersWidth = 51;
-            this.dataDriverCarCrew.RowTemplate.Height = 20;
-            this.dataDriverCarCrew.Size = new System.Drawing.Size(510, 718);
-            this.dataDriverCarCrew.TabIndex = 3;
-            this.dataDriverCarCrew.DoubleClick += new System.EventHandler(this.dataDriverCarCrew_DoubleClick);
+            this.dataPersonCarCrew.Location = new System.Drawing.Point(637, 12);
+            this.dataPersonCarCrew.Name = "dataPersonCarCrew";
+            this.dataPersonCarCrew.ReadOnly = true;
+            this.dataPersonCarCrew.RowHeadersWidth = 51;
+            this.dataPersonCarCrew.RowTemplate.Height = 20;
+            this.dataPersonCarCrew.Size = new System.Drawing.Size(510, 718);
+            this.dataPersonCarCrew.TabIndex = 3;
+            this.dataPersonCarCrew.DoubleClick += new System.EventHandler(this.dataPersonCarCrew_DoubleClick);
             // 
             // tblPersonId
             // 
@@ -237,15 +237,15 @@ namespace AppWinFormCRUD.UI
             this.labelPerson.Text = "Водитель";
             this.labelPerson.Click += new System.EventHandler(this.labelPerson_Click);
             // 
-            // txtDriverAge
+            // txtPersonAge
             // 
-            this.txtDriverAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtDriverAge.Location = new System.Drawing.Point(299, 164);
-            this.txtDriverAge.MaxLength = 2;
-            this.txtDriverAge.Name = "txtDriverAge";
-            this.txtDriverAge.Size = new System.Drawing.Size(276, 36);
-            this.txtDriverAge.TabIndex = 7;
-            this.txtDriverAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDriverAge_KeyPress);
+            this.txtPersonAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtPersonAge.Location = new System.Drawing.Point(299, 164);
+            this.txtPersonAge.MaxLength = 2;
+            this.txtPersonAge.Name = "txtPersonAge";
+            this.txtPersonAge.Size = new System.Drawing.Size(276, 36);
+            this.txtPersonAge.TabIndex = 7;
+            this.txtPersonAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPersonAge_KeyPress);
             // 
             // label3
             // 
@@ -257,15 +257,15 @@ namespace AppWinFormCRUD.UI
             this.label3.TabIndex = 6;
             this.label3.Text = "Возраст :";
             // 
-            // txtDriverExpAge
+            // txtPersonExpAge
             // 
-            this.txtDriverExpAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtDriverExpAge.Location = new System.Drawing.Point(299, 206);
-            this.txtDriverExpAge.MaxLength = 2;
-            this.txtDriverExpAge.Name = "txtDriverExpAge";
-            this.txtDriverExpAge.Size = new System.Drawing.Size(276, 36);
-            this.txtDriverExpAge.TabIndex = 9;
-            this.txtDriverExpAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDriverExpAge_KeyPress);
+            this.txtPersonExpAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtPersonExpAge.Location = new System.Drawing.Point(299, 206);
+            this.txtPersonExpAge.MaxLength = 2;
+            this.txtPersonExpAge.Name = "txtPersonExpAge";
+            this.txtPersonExpAge.Size = new System.Drawing.Size(276, 36);
+            this.txtPersonExpAge.TabIndex = 9;
+            this.txtPersonExpAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPersonExpAge_KeyPress);
             // 
             // label4
             // 
@@ -451,16 +451,16 @@ namespace AppWinFormCRUD.UI
             this.label12.TabIndex = 26;
             this.label12.Text = "Маршрут :";
             // 
-            // txtCrewDriver
+            // txtCrewPerson
             // 
-            this.txtCrewDriver.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txtCrewDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtCrewDriver.FormattingEnabled = true;
-            this.txtCrewDriver.Location = new System.Drawing.Point(299, 606);
-            this.txtCrewDriver.Name = "txtCrewDriver";
-            this.txtCrewDriver.Size = new System.Drawing.Size(276, 37);
-            this.txtCrewDriver.Sorted = true;
-            this.txtCrewDriver.TabIndex = 28;
+            this.txtCrewPerson.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.txtCrewPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtCrewPerson.FormattingEnabled = true;
+            this.txtCrewPerson.Location = new System.Drawing.Point(299, 606);
+            this.txtCrewPerson.Name = "txtCrewPerson";
+            this.txtCrewPerson.Size = new System.Drawing.Size(276, 37);
+            this.txtCrewPerson.Sorted = true;
+            this.txtCrewPerson.TabIndex = 28;
             // 
             // txtCrewCar
             // 
@@ -489,7 +489,7 @@ namespace AppWinFormCRUD.UI
             this.ClientSize = new System.Drawing.Size(1181, 850);
             this.Controls.Add(this.txtCrewTransef);
             this.Controls.Add(this.txtCrewCar);
-            this.Controls.Add(this.txtCrewDriver);
+            this.Controls.Add(this.txtCrewPerson);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDelete);
@@ -505,22 +505,22 @@ namespace AppWinFormCRUD.UI
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.txtCarIdNumber);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.txtDriverExpAge);
+            this.Controls.Add(this.txtPersonExpAge);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtDriverAge);
+            this.Controls.Add(this.txtPersonAge);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelPerson);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtPersonName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataDriverCarCrew);
+            this.Controls.Add(this.dataPersonCarCrew);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "StartForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал";
             this.Load += new System.EventHandler(this.StartForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataDriverCarCrew)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataPersonCarCrew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -534,12 +534,12 @@ namespace AppWinFormCRUD.UI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPersonName;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.DataGridView dataDriverCarCrew;
+        private System.Windows.Forms.DataGridView dataPersonCarCrew;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelPerson;
-        private System.Windows.Forms.TextBox txtDriverAge;
+        private System.Windows.Forms.TextBox txtPersonAge;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtDriverExpAge;
+        private System.Windows.Forms.TextBox txtPersonExpAge;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtCarMileage;
         private System.Windows.Forms.Label label5;
@@ -556,7 +556,7 @@ namespace AppWinFormCRUD.UI
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox txtCrewDriver;
+        private System.Windows.Forms.ComboBox txtCrewPerson;
         private System.Windows.Forms.ComboBox txtCrewCar;
         private System.Windows.Forms.TextBox txtCrewTransef;
         private System.Windows.Forms.DataGridViewTextBoxColumn tblPersonId;

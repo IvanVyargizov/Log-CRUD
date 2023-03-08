@@ -18,5 +18,6 @@ namespace AppWinFormCRUD.Data.Tables
         public string Model { get; set; }
 
         public int? Mileage { get; set; }
+
     }
 }

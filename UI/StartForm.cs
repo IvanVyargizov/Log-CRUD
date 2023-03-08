@@ -21,6 +21,10 @@ namespace AppWinFormCRUD.UI
         private readonly string headerCarMileage = "Пробег";
         private readonly string headerCrewTransfer = "Маршрут";
 
+        private string rememberCrewNamePerson = "";
+        private string rememberCrewIdNumberCar = "";
+        private long rememberCrewId = -1;
+
         public StartForm()
         {
             InitializeComponent();
@@ -37,26 +41,6 @@ namespace AppWinFormCRUD.UI
             person = new Person();
             car = new Car();
             crew = new Crew();
-        }
-
-        private void ClearPerson() 
-        {
-            txtPersonName.Text = "";
-            txtDriverAge.Text = "";
-            txtDriverExpAge.Text = "";
-        }
-        private void ClearCar()
-        {
-            txtCarIdNumber.Text = "";
-            txtCarModel.Text = "";
-            txtCarMileage.Text = "";
-        }
-
-        private void ClearCrew()
-        {
-            txtCrewDriver.SelectedIndex = -1;
-            txtCrewCar.SelectedIndex = -1;
-            txtCrewTransef.Text = "";
         }
 
         private void StartForm_Load(object sender, EventArgs e)
@@ -77,10 +61,71 @@ namespace AppWinFormCRUD.UI
             btnDelete.Enabled = false;
         }
 
+        private void dataPersonCarCrew_DoubleClick(object sender, EventArgs e)
+        {
+            if (dataPersonCarCrew.CurrentRow.Index != -1)
+            {
+                if (dataPersonCarCrew.Columns[1].HeaderText == headerPersonFullName
+                    && dataPersonCarCrew.Columns[3].HeaderText != headerCrewTransfer)
+                {
+                    person.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblPersonId"].Value);
+
+                    using (var cont = new Data.MyDbContext())
+                    {
+                        person = cont.Persons.Where(x => x.Id == person.Id).FirstOrDefault();
+                        txtPersonName.Text = person.Name;
+                        txtPersonAge.Text = person.Age.ToString();
+                        txtPersonExpAge.Text = person.ExperienceAge.ToString();
+
+                        rememberCrewNamePerson = txtPersonName.Text;
+                    }
+
+                    ClearCar();
+                    ClearCrew();
+                }
+
+                if (dataPersonCarCrew.Columns[1].HeaderText == headerCarIdNumber)
+                {
+                    car.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblCarId"].Value);
+
+                    using (var cont = new Data.MyDbContext())
+                    {
+                        car = cont.Cars.Where(x => x.Id == car.Id).FirstOrDefault();
+                        txtCarIdNumber.Text = car.IdNumber;
+                        txtCarModel.Text = car.Model;
+                        txtCarMileage.Text = car.Mileage.ToString();
+
+                        rememberCrewIdNumberCar = txtCarIdNumber.Text;
+                    }
+
+                    ClearPerson();
+                    ClearCrew();
+                }
+
+                if (dataPersonCarCrew.Columns[3].HeaderText == headerCrewTransfer)
+                {
+                    crew.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblCrewId"].Value);
+                    using (var cont = new Data.MyDbContext())
+                    {
+                        crew = cont.Crews.Where(x => x.Id == crew.Id).FirstOrDefault();
+                        txtCrewPerson.Text = crew.NamePerson;
+                        txtCrewCar.Text = crew.IdNumberCar;
+                        txtCrewTransef.Text = crew.Transfer;
+                    }
+
+                    ClearPerson();
+                    ClearCar();
+                }
+
+                btnSave.Text = "Обновить";
+                btnDelete.Enabled = true;
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (txtPersonName.Text.Trim().Equals("")
-                && (!txtDriverAge.Text.Trim().Equals("") || !txtDriverExpAge.Text.Trim().Equals("")))
+                && (!txtPersonAge.Text.Trim().Equals("") || !txtPersonExpAge.Text.Trim().Equals("")))
             {
                 MessageBox.Show("Введите ФИО водителя");
                 return;
@@ -93,7 +138,7 @@ namespace AppWinFormCRUD.UI
                 return;
             }
             
-            else if ((txtCrewCar.Text.Trim().Equals("") || txtCrewDriver.Text.Trim().Equals("")) 
+            else if ((txtCrewCar.Text.Trim().Equals("") || txtCrewPerson.Text.Trim().Equals("")) 
                 && !txtCrewTransef.Text.Trim().Equals(""))
             {
                 MessageBox.Show("Выбирете госномер автомобиля и водителя");
@@ -132,12 +177,14 @@ namespace AppWinFormCRUD.UI
         {
             person.Name = txtPersonName.Text.Trim();
 
-            if (txtDriverAge.Text.Trim().Equals("")) person.Age = null;
-            else person.Age = int.Parse(txtDriverAge.Text.Trim());
+            if (txtPersonAge.Text.Trim().Equals("")) person.Age = null;
+            else person.Age = int.Parse(txtPersonAge.Text.Trim());
             
-            if (txtDriverExpAge.Text.Trim().Equals("")) person.ExperienceAge = null;
-            else person.ExperienceAge = int.Parse(txtDriverExpAge.Text.Trim());
-            
+            if (txtPersonExpAge.Text.Trim().Equals("")) person.ExperienceAge = null;
+            else person.ExperienceAge = int.Parse(txtPersonExpAge.Text.Trim());
+
+            bool similar1 = false;
+
             using (var cont = new Data.MyDbContext())
             {
                 if (person.Id == 0)
@@ -162,24 +209,24 @@ namespace AppWinFormCRUD.UI
                 }
                 else
                 {
-                    bool similar1 = false;
                     foreach (Crew item in cont.Crews.ToList<Crew>())
                     {
-                        if (item.NamePerson.Equals(person.Name)) 
+                        if (item.NamePerson.Equals(rememberCrewNamePerson))
                         {
                             similar1 = true;
+                            rememberCrewId = item.Id;
+                            rememberCrewIdNumberCar = item.IdNumberCar;
+                            rememberCrewNamePerson = person.Name;
                             break;
-                        } 
+                        }
                     }
-                    if (similar1) MessageBox.Show("Водитель состоит в экипаже. Сначала обновите или удалите экипаж");
-                    else
-                    {
-                        cont.Entry(person).State = EntityState.Modified;
-                        cont.SaveChanges();
-                        MessageBox.Show("Данные в базе водителей успешно обновлены");
-                    }
+                    cont.Entry(person).State = EntityState.Modified;
+                    cont.SaveChanges();
+                    MessageBox.Show("Данные в базе водителей успешно обновлены");
                 }
             }
+
+            if (similar1) UpdateCrew(rememberCrewNamePerson, rememberCrewIdNumberCar, rememberCrewId);
 
             person = new Person();
         }
@@ -191,6 +238,8 @@ namespace AppWinFormCRUD.UI
 
             if (txtCarMileage.Text.Trim().Equals("")) car.Mileage = null;
             else car.Mileage = int.Parse(txtCarMileage.Text.Trim());
+
+            bool similar1 = false;
 
             using (var cont = new Data.MyDbContext())
             {
@@ -216,30 +265,31 @@ namespace AppWinFormCRUD.UI
 
                 else 
                 {
-                    bool similar1 = false;
                     foreach (Crew item in cont.Crews.ToList<Crew>())
                     {
-                        if (item.IdNumberCar.Equals(car.IdNumber))
+                        if (item.IdNumberCar.Equals(rememberCrewIdNumberCar))
                         {
                             similar1 = true;
+                            rememberCrewId = item.Id;
+                            rememberCrewIdNumberCar = car.IdNumber;
+                            rememberCrewNamePerson = item.NamePerson;
                             break;
                         } 
                     }
-                    if (similar1) MessageBox.Show("Автомобиль состоит в экипаже. Сначала обновите или удалите экипаж");
-                    else
-                    {
-                        cont.Entry(car).State = EntityState.Modified;
-                        cont.SaveChanges();
-                        MessageBox.Show("Данные в базе автомобилей успешно обновлены");
-                    }
+                    cont.Entry(car).State = EntityState.Modified;
+                    cont.SaveChanges();
+                    MessageBox.Show("Данные в базе автомобилей успешно обновлены");
                 }
             }
+
+            if (similar1) UpdateCrew(rememberCrewNamePerson, rememberCrewIdNumberCar, rememberCrewId);
+
             car = new Car();
         }
 
         private void SaveCrew ()
         {
-            crew.NamePerson = txtCrewDriver.Text.Trim();
+            crew.NamePerson = txtCrewPerson.Text.Trim();
             crew.IdNumberCar = txtCrewCar.Text.Trim();
             crew.Transfer = txtCrewTransef.Text.Trim();
 
@@ -275,52 +325,17 @@ namespace AppWinFormCRUD.UI
             crew = new Crew();
         }
 
-        private void dataDriverCarCrew_DoubleClick(object sender, EventArgs e)
+        private void UpdateCrew(string namePerson, string idNumberCar, long id) 
         {
-            if (dataDriverCarCrew.CurrentRow.Index != -1)
+            using (var cont = new Data.MyDbContext())
             {
-                if (dataDriverCarCrew.Columns[1].HeaderText == headerPersonFullName 
-                    && dataDriverCarCrew.Columns[3].HeaderText != headerCrewTransfer)
-                {
-                    person.Id = Convert.ToInt32(dataDriverCarCrew.CurrentRow.Cells["tblPersonId"].Value);
-
-                    using (var cont = new Data.MyDbContext())
-                    {
-                        person = cont.Persons.Where(x => x.Id == person.Id).FirstOrDefault();
-                        txtPersonName.Text = person.Name;
-                        txtDriverAge.Text = person.Age.ToString();
-                        txtDriverExpAge.Text = person.ExperienceAge.ToString();
-                    }
-                }
-
-                if (dataDriverCarCrew.Columns[1].HeaderText == headerCarIdNumber)
-                {
-                    car.Id = Convert.ToInt32(dataDriverCarCrew.CurrentRow.Cells["tblCarId"].Value);
-
-                    using (var cont = new Data.MyDbContext())
-                    {
-                        car = cont.Cars.Where(x => x.Id == car.Id).FirstOrDefault();
-                        txtCarIdNumber.Text = car.IdNumber;
-                        txtCarModel.Text = car.Model;
-                        txtCarMileage.Text = car.Mileage.ToString();
-                    }
-                }
-
-                if (dataDriverCarCrew.Columns[3].HeaderText == headerCrewTransfer)
-                { 
-                    crew.Id = Convert.ToInt32(dataDriverCarCrew.CurrentRow.Cells["tblCrewId"].Value);
-                    using (var cont = new Data.MyDbContext())
-                    {
-                        crew = cont.Crews.Where(x => x.Id == crew.Id).FirstOrDefault();
-                        txtCrewDriver.Text = crew.NamePerson;
-                        txtCrewCar.Text = crew.IdNumberCar;
-                        txtCrewTransef.Text = crew.Transfer;
-                    }
-                }    
-
-                btnSave.Text = "Обновить";
-                btnDelete.Enabled = true;
+                crew = cont.Crews.Find(id);
+                crew.NamePerson = namePerson;
+                crew.IdNumberCar = idNumberCar;
+                cont.Entry(crew).State = EntityState.Modified;
+                cont.SaveChanges();
             }
+            crew = new Crew();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -360,7 +375,7 @@ namespace AppWinFormCRUD.UI
                 }
 
                 else if (txtPersonName.Text.Equals("") &&
-                    (!txtDriverAge.Text.Trim().Equals("") || !txtDriverExpAge.Text.Trim().Equals("")))
+                    (!txtPersonAge.Text.Trim().Equals("") || !txtPersonExpAge.Text.Trim().Equals("")))
                 {
                     MessageBox.Show("Удаление водителя не удалось. ФИО должно быть заполнено");
                     ClearPerson();
@@ -406,7 +421,7 @@ namespace AppWinFormCRUD.UI
                     ClearCar();
                 }
 
-                if (!txtCrewDriver.Text.Equals("") && !txtCrewCar.Text.Equals(""))
+                if (!txtCrewPerson.Text.Equals("") && !txtCrewCar.Text.Equals(""))
                 {
                     using (var cont = new Data.MyDbContext())
                     {
@@ -424,28 +439,28 @@ namespace AppWinFormCRUD.UI
                     crew = new Crew();
                 }
 
-                else if ((txtCrewDriver.Text.Equals("") || txtCrewCar.Text.Equals("")) 
+                else if ((txtCrewPerson.Text.Equals("") || txtCrewCar.Text.Equals("")) 
                     && !txtCrewTransef.Text.Trim().Equals(""))
                 {
                     MessageBox.Show("Удаление экипажа не удалось. ФИО водителя и госномер должны быть заполнены");
                     ClearCrew();
                 }
-            }
 
-            btnSave.Text = "Сохранить";
-            btnDelete.Enabled = false;
-            LoadDataPersonComboBox();
-            LoadDataCarComboBox();
+                btnSave.Text = "Сохранить";
+                btnDelete.Enabled = false;
+                LoadDataPersonComboBox();
+                LoadDataCarComboBox();
+            }
         }
 
-        private void txtDriverName_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtPersonName_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
             if (!Char.IsDigit(number)) return;
             e.Handled = true;
         }
 
-        private void txtDriverAge_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtPersonAge_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
             if (Char.IsDigit(number)) return;
@@ -453,14 +468,14 @@ namespace AppWinFormCRUD.UI
             e.Handled = true;
         }
 
-        private void txtDriverExpAge_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtPersonExpAge_KeyPress(object sender, KeyPressEventArgs e)
         {
-            txtDriverAge_KeyPress(sender, e);
+            txtPersonAge_KeyPress(sender, e);
         }
 
         private void txtCarMileage_KeyPress(object sender, KeyPressEventArgs e)
         {
-            txtDriverAge_KeyPress(sender, e);
+            txtPersonAge_KeyPress(sender, e);
         }
 
         private void LoadDataPerson()
@@ -468,11 +483,11 @@ namespace AppWinFormCRUD.UI
             using (var cont = new Data.MyDbContext())
             {
                                       
-                dataDriverCarCrew.DataSource = cont.Persons.ToList<Person>();
-                dataDriverCarCrew.Columns[1].HeaderText = headerPersonFullName;
-                dataDriverCarCrew.Columns[2].HeaderText = headerPersonAge;
-                dataDriverCarCrew.Columns[3].HeaderText = headerPersonExpAge;
-                dataDriverCarCrew.Refresh();
+                dataPersonCarCrew.DataSource = cont.Persons.ToList<Person>();
+                dataPersonCarCrew.Columns[1].HeaderText = headerPersonFullName;
+                dataPersonCarCrew.Columns[2].HeaderText = headerPersonAge;
+                dataPersonCarCrew.Columns[3].HeaderText = headerPersonExpAge;
+                dataPersonCarCrew.Refresh();
             }
         }
 
@@ -480,10 +495,10 @@ namespace AppWinFormCRUD.UI
         {
             using (var cont = new Data.MyDbContext())
             {
-                txtCrewDriver.Items.Clear();
+                txtCrewPerson.Items.Clear();
                 foreach (Person item in cont.Persons.ToList<Person>())
                 {
-                    txtCrewDriver.Items.Add(item.Name);
+                    txtCrewPerson.Items.Add(item.Name);
                 }                   
             }
         }
@@ -492,11 +507,11 @@ namespace AppWinFormCRUD.UI
         {
             using (var cont = new Data.MyDbContext())
             {
-                dataDriverCarCrew.DataSource = cont.Cars.ToList<Car>();
-                dataDriverCarCrew.Columns[1].HeaderText = headerCarIdNumber;
-                dataDriverCarCrew.Columns[2].HeaderText = headerCarModel;
-                dataDriverCarCrew.Columns[3].HeaderText = headerCarMileage;
-                dataDriverCarCrew.Refresh();
+                dataPersonCarCrew.DataSource = cont.Cars.ToList<Car>();
+                dataPersonCarCrew.Columns[1].HeaderText = headerCarIdNumber;
+                dataPersonCarCrew.Columns[2].HeaderText = headerCarModel;
+                dataPersonCarCrew.Columns[3].HeaderText = headerCarMileage;
+                dataPersonCarCrew.Refresh();
             }
         }
 
@@ -516,11 +531,11 @@ namespace AppWinFormCRUD.UI
         {
             using (var cont = new Data.MyDbContext())
             {
-                dataDriverCarCrew.DataSource = cont.Crews.ToList<Crew>();
-                dataDriverCarCrew.Columns[1].HeaderText = headerPersonFullName;
-                dataDriverCarCrew.Columns[2].HeaderText = headerCarIdNumber;
-                dataDriverCarCrew.Columns[3].HeaderText = headerCrewTransfer;
-                dataDriverCarCrew.Refresh();
+                dataPersonCarCrew.DataSource = cont.Crews.ToList<Crew>();
+                dataPersonCarCrew.Columns[1].HeaderText = headerPersonFullName;
+                dataPersonCarCrew.Columns[2].HeaderText = headerCarIdNumber;
+                dataPersonCarCrew.Columns[3].HeaderText = headerCrewTransfer;
+                dataPersonCarCrew.Refresh();
             }
         }
 
@@ -552,6 +567,27 @@ namespace AppWinFormCRUD.UI
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             LoadDataCrew();
+        }
+
+        private void ClearPerson()
+        {
+            txtPersonName.Text = "";
+            txtPersonAge.Text = "";
+            txtPersonExpAge.Text = "";
+        }
+
+        private void ClearCar()
+        {
+            txtCarIdNumber.Text = "";
+            txtCarModel.Text = "";
+            txtCarMileage.Text = "";
+        }
+
+        private void ClearCrew()
+        {
+            txtCrewPerson.SelectedIndex = -1;
+            txtCrewCar.SelectedIndex = -1;
+            txtCrewTransef.Text = "";
         }
     }
 }

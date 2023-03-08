@@ -1,4 +1,5 @@
 ﻿using SQLite.CodeFirst;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,8 +20,5 @@ namespace AppWinFormCRUD.Data.Tables
 
         public int? ExperienceAge { get; set; }
 
-        //public Crew Crew { get; set; }
-
-        //public ICollection<Order> Orders { get; set; }
     }
 }
