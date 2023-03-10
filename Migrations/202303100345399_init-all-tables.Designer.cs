@@ -7,13 +7,13 @@ namespace AppWinFormCRUD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class initalltables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initalltables));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303050730547_init"; }
+            get { return "202303100345399_init-all-tables"; }
         }
         
         string IMigrationMetadata.Source

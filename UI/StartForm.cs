@@ -35,6 +35,7 @@ namespace AppWinFormCRUD.UI
             ClearCar();
             ClearCrew();
             ClearPerson();
+            //UnableUpdateTxtBox();
             btnSave.Text = "Сохранить";
             btnDelete.Enabled = false;
 
@@ -68,6 +69,10 @@ namespace AppWinFormCRUD.UI
                 if (dataPersonCarCrew.Columns[1].HeaderText == headerPersonFullName
                     && dataPersonCarCrew.Columns[3].HeaderText != headerCrewTransfer)
                 {
+
+                    //ReadOnlyTxtBoxCar();
+                    //ReadOnlyTxtBoxCrew();
+
                     person.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblPersonId"].Value);
 
                     using (var cont = new Data.MyDbContext())
@@ -86,6 +91,10 @@ namespace AppWinFormCRUD.UI
 
                 if (dataPersonCarCrew.Columns[1].HeaderText == headerCarIdNumber)
                 {
+
+                    //ReadOnlyTxtBoxPerson();
+                    //ReadOnlyTxtBoxCrew();
+
                     car.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblCarId"].Value);
 
                     using (var cont = new Data.MyDbContext())
@@ -104,7 +113,12 @@ namespace AppWinFormCRUD.UI
 
                 if (dataPersonCarCrew.Columns[3].HeaderText == headerCrewTransfer)
                 {
+
+                    //ReadOnlyTxtBoxPerson();
+                    //ReadOnlyTxtBoxCar();
+
                     crew.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblCrewId"].Value);
+                    
                     using (var cont = new Data.MyDbContext())
                     {
                         crew = cont.Crews.Where(x => x.Id == crew.Id).FirstOrDefault();
@@ -169,6 +183,7 @@ namespace AppWinFormCRUD.UI
 
             btnSave.Text = "Сохранить";
             btnDelete.Enabled = false;
+            //UnableUpdateTxtBox();
             LoadDataPersonComboBox();
             LoadDataCarComboBox();
         }
@@ -589,5 +604,41 @@ namespace AppWinFormCRUD.UI
             txtCrewCar.SelectedIndex = -1;
             txtCrewTransef.Text = "";
         }
+
+        //private void ReadOnlyTxtBoxPerson()
+        //{
+        //    txtPersonName.ReadOnly = true;
+        //    txtPersonAge.ReadOnly = true;
+        //    txtPersonExpAge.ReadOnly = true;
+        //}
+
+        //private void ReadOnlyTxtBoxCar()
+        //{
+        //    txtCarIdNumber.ReadOnly = true;
+        //    txtCarModel.ReadOnly = true;
+        ////    txtCarMileage.ReadOnly = true;
+        //}
+
+        //private void ReadOnlyTxtBoxCrew()
+        //{
+        //    txtCrewPerson.DropDownStyle = ComboBoxStyle.Simple; // Need update to disabled input data and then remove
+        //    txtCrewCar.DropDownStyle = ComboBoxStyle.Simple; // Need update to disabled input data and then remove
+        //    txtCrewTransef.ReadOnly = true;
+        //}
+
+        //private void UnableUpdateTxtBox()
+        //{
+        //    txtPersonName.ReadOnly = false;
+        //    txtPersonAge.ReadOnly = false;
+        //    txtPersonExpAge.ReadOnly = false;
+
+        //    txtCarIdNumber.ReadOnly = false;
+        //    txtCarModel.ReadOnly = false;
+        //    txtCarMileage.ReadOnly = false;
+
+        //    txtCrewPerson.DropDownStyle = ComboBoxStyle.DropDownList;
+        //    txtCrewCar.DropDownStyle = ComboBoxStyle.DropDownList;
+        //    txtCrewTransef.ReadOnly = false;
+        //}
     }
 }
