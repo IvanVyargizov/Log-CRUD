@@ -1,4 +1,5 @@
 ﻿using SQLite.CodeFirst;
+using System;
 using System.Data.Entity;
 
 namespace AppWinFormCRUD.Data
@@ -7,13 +8,11 @@ namespace AppWinFormCRUD.Data
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            var sqliteMigrationInitializer = new MigrateDatabaseToLatestVersion<MyDbContext, Migrations.Configuration>(true);
+            Database.SetInitializer(sqliteMigrationInitializer);
+
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<DbContext>(modelBuilder);
             Database.SetInitializer(sqliteConnectionInitializer);
-
-            var model = modelBuilder.Build(Database.Connection);
-            ISqlGenerator sqlGenerator = new SqliteSqlGenerator();
-            _ = sqlGenerator.Generate(model.StoreModel);
-
         }
 
         public DbSet<Tables.Person> Persons { get; set; }
