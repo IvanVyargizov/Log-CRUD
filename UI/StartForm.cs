@@ -517,8 +517,7 @@ namespace AppWinFormCRUD.UI
         {
             using (var cont = new Data.MyDbContext())
             {
-                                      
-                dataPersonCarCrew.DataSource = cont.Persons.ToList<Person>();
+                dataPersonCarCrew.DataSource = cont.Persons.ToList<Person>().OrderBy(p => p.Name).ToList();
                 dataPersonCarCrew.Columns[1].HeaderText = headerPersonFullName;
                 dataPersonCarCrew.Columns[2].HeaderText = headerPersonAge;
                 dataPersonCarCrew.Columns[3].HeaderText = headerPersonExpAge;
@@ -542,7 +541,7 @@ namespace AppWinFormCRUD.UI
         {
             using (var cont = new Data.MyDbContext())
             {
-                dataPersonCarCrew.DataSource = cont.Cars.ToList<Car>();
+                dataPersonCarCrew.DataSource = cont.Cars.ToList<Car>().OrderBy(c => c.IdNumber).ToList();
                 dataPersonCarCrew.Columns[1].HeaderText = headerCarIdNumber;
                 dataPersonCarCrew.Columns[2].HeaderText = headerCarModel;
                 dataPersonCarCrew.Columns[3].HeaderText = headerCarMileage;
@@ -566,7 +565,7 @@ namespace AppWinFormCRUD.UI
         {
             using (var cont = new Data.MyDbContext())
             {
-                dataPersonCarCrew.DataSource = cont.Crews.ToList<Crew>();
+                dataPersonCarCrew.DataSource = cont.Crews.ToList<Crew>().OrderBy(cr => cr.NamePerson).ToList();
                 dataPersonCarCrew.Columns[1].HeaderText = headerPersonFullName;
                 dataPersonCarCrew.Columns[2].HeaderText = headerCarIdNumber;
                 dataPersonCarCrew.Columns[3].HeaderText = headerCrewTransfer;
