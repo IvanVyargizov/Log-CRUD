@@ -390,7 +390,11 @@ namespace AppWinFormCRUD.UI
                                 break;
                             } 
                         }
-                        if (similar) MessageBox.Show("Водитель состоит в экипаже. Сначала обновите или удалите экипаж");
+                        if (similar)
+                        { 
+                            MessageBox.Show("Водитель состоит в экипаже. Сначала обновите или удалите экипаж");
+                            return;
+                        }
                         else
                         {
                             var entry = cont.Entry(person);
@@ -429,7 +433,11 @@ namespace AppWinFormCRUD.UI
                                 break;
                             } 
                         }
-                        if (similar) MessageBox.Show("Автомобиль состоит в экипаже. Сначала обновите или удалите экипаж");
+                        if (similar)
+                        {
+                            MessageBox.Show("Автомобиль состоит в экипаже. Сначала обновите или удалите экипаж");
+                            return;
+                        }
 
                         else
                         {
@@ -483,6 +491,7 @@ namespace AppWinFormCRUD.UI
 
                 btnSave.Text = "Сохранить";
                 btnDelete.Enabled = false;
+                UnableUpdateTxtBox();
                 LoadDataPersonComboBox();
                 LoadDataCarComboBox();
             }
