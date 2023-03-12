@@ -33,16 +33,6 @@ namespace AppWinFormCRUD.UI
             this.txtPersonName = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.dataPersonCarCrew = new System.Windows.Forms.DataGridView();
-            this.tblPersonId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblPersonName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblPersonAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblPersonExpAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblCarId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblCarIdNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblCarModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblCarMileage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblCrewId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblCrewTransfer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelPerson = new System.Windows.Forms.Label();
             this.txtPersonAge = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,6 +57,16 @@ namespace AppWinFormCRUD.UI
             this.txtCrewPerson = new System.Windows.Forms.ComboBox();
             this.txtCrewCar = new System.Windows.Forms.ComboBox();
             this.txtCrewTransef = new System.Windows.Forms.TextBox();
+            this.tblPersonId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblPersonName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblPersonAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblPersonExpAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblCarId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblCarIdNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblCarModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblCarMileage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblCrewId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblCrewTransfer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataPersonCarCrew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -130,100 +130,6 @@ namespace AppWinFormCRUD.UI
             this.dataPersonCarCrew.Size = new System.Drawing.Size(510, 718);
             this.dataPersonCarCrew.TabIndex = 3;
             this.dataPersonCarCrew.DoubleClick += new System.EventHandler(this.dataPersonCarCrew_DoubleClick);
-            // 
-            // tblPersonId
-            // 
-            this.tblPersonId.DataPropertyName = "Id";
-            this.tblPersonId.HeaderText = "id";
-            this.tblPersonId.MinimumWidth = 6;
-            this.tblPersonId.Name = "tblPersonId";
-            this.tblPersonId.ReadOnly = true;
-            this.tblPersonId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.tblPersonId.Visible = false;
-            this.tblPersonId.Width = 125;
-            // 
-            // tblPersonName
-            // 
-            this.tblPersonName.DataPropertyName = "Name";
-            this.tblPersonName.HeaderText = "ФИО";
-            this.tblPersonName.MinimumWidth = 6;
-            this.tblPersonName.Name = "tblPersonName";
-            this.tblPersonName.ReadOnly = true;
-            this.tblPersonName.Width = 125;
-            // 
-            // tblPersonAge
-            // 
-            this.tblPersonAge.DataPropertyName = "Age";
-            this.tblPersonAge.HeaderText = "Возраст";
-            this.tblPersonAge.MinimumWidth = 6;
-            this.tblPersonAge.Name = "tblPersonAge";
-            this.tblPersonAge.ReadOnly = true;
-            this.tblPersonAge.Width = 125;
-            // 
-            // tblPersonExpAge
-            // 
-            this.tblPersonExpAge.DataPropertyName = "ExperienceAge";
-            this.tblPersonExpAge.HeaderText = "Стаж";
-            this.tblPersonExpAge.MinimumWidth = 6;
-            this.tblPersonExpAge.Name = "tblPersonExpAge";
-            this.tblPersonExpAge.ReadOnly = true;
-            this.tblPersonExpAge.Width = 125;
-            // 
-            // tblCarId
-            // 
-            this.tblCarId.DataPropertyName = "Id";
-            this.tblCarId.HeaderText = "id";
-            this.tblCarId.MinimumWidth = 6;
-            this.tblCarId.Name = "tblCarId";
-            this.tblCarId.ReadOnly = true;
-            this.tblCarId.Visible = false;
-            this.tblCarId.Width = 125;
-            // 
-            // tblCarIdNumber
-            // 
-            this.tblCarIdNumber.DataPropertyName = "IdNumber";
-            this.tblCarIdNumber.HeaderText = "Госномер";
-            this.tblCarIdNumber.MinimumWidth = 6;
-            this.tblCarIdNumber.Name = "tblCarIdNumber";
-            this.tblCarIdNumber.ReadOnly = true;
-            this.tblCarIdNumber.Width = 125;
-            // 
-            // tblCarModel
-            // 
-            this.tblCarModel.DataPropertyName = "Model";
-            this.tblCarModel.HeaderText = "Модель";
-            this.tblCarModel.MinimumWidth = 6;
-            this.tblCarModel.Name = "tblCarModel";
-            this.tblCarModel.ReadOnly = true;
-            this.tblCarModel.Width = 125;
-            // 
-            // tblCarMileage
-            // 
-            this.tblCarMileage.DataPropertyName = "Mileage";
-            this.tblCarMileage.HeaderText = "Пробег";
-            this.tblCarMileage.MinimumWidth = 6;
-            this.tblCarMileage.Name = "tblCarMileage";
-            this.tblCarMileage.ReadOnly = true;
-            this.tblCarMileage.Width = 125;
-            // 
-            // tblCrewId
-            // 
-            this.tblCrewId.DataPropertyName = "Id";
-            this.tblCrewId.HeaderText = "id";
-            this.tblCrewId.MinimumWidth = 6;
-            this.tblCrewId.Name = "tblCrewId";
-            this.tblCrewId.ReadOnly = true;
-            this.tblCrewId.Visible = false;
-            this.tblCrewId.Width = 125;
-            // 
-            // tblCrewTransfer
-            // 
-            this.tblCrewTransfer.DataPropertyName = "Transfer";
-            this.tblCrewTransfer.HeaderText = "Трансфер";
-            this.tblCrewTransfer.MinimumWidth = 6;
-            this.tblCrewTransfer.Name = "tblCrewTransfer";
-            this.tblCrewTransfer.ReadOnly = true;
-            this.tblCrewTransfer.Width = 125;
             // 
             // labelPerson
             // 
@@ -481,6 +387,106 @@ namespace AppWinFormCRUD.UI
             this.txtCrewTransef.Name = "txtCrewTransef";
             this.txtCrewTransef.Size = new System.Drawing.Size(276, 36);
             this.txtCrewTransef.TabIndex = 30;
+            // 
+            // tblPersonId
+            // 
+            this.tblPersonId.DataPropertyName = "Id";
+            this.tblPersonId.HeaderText = "id";
+            this.tblPersonId.MinimumWidth = 6;
+            this.tblPersonId.Name = "tblPersonId";
+            this.tblPersonId.ReadOnly = true;
+            this.tblPersonId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.tblPersonId.Visible = false;
+            this.tblPersonId.Width = 125;
+            // 
+            // tblPersonName
+            // 
+            this.tblPersonName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.tblPersonName.DataPropertyName = "Name";
+            this.tblPersonName.HeaderText = "ФИО";
+            this.tblPersonName.MinimumWidth = 6;
+            this.tblPersonName.Name = "tblPersonName";
+            this.tblPersonName.ReadOnly = true;
+            this.tblPersonName.Width = 71;
+            // 
+            // tblPersonAge
+            // 
+            this.tblPersonAge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.tblPersonAge.DataPropertyName = "Age";
+            this.tblPersonAge.HeaderText = "Возраст";
+            this.tblPersonAge.MinimumWidth = 6;
+            this.tblPersonAge.Name = "tblPersonAge";
+            this.tblPersonAge.ReadOnly = true;
+            this.tblPersonAge.Width = 91;
+            // 
+            // tblPersonExpAge
+            // 
+            this.tblPersonExpAge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.tblPersonExpAge.DataPropertyName = "ExperienceAge";
+            this.tblPersonExpAge.HeaderText = "Стаж";
+            this.tblPersonExpAge.MinimumWidth = 6;
+            this.tblPersonExpAge.Name = "tblPersonExpAge";
+            this.tblPersonExpAge.ReadOnly = true;
+            this.tblPersonExpAge.Width = 70;
+            // 
+            // tblCarId
+            // 
+            this.tblCarId.DataPropertyName = "Id";
+            this.tblCarId.HeaderText = "id";
+            this.tblCarId.MinimumWidth = 6;
+            this.tblCarId.Name = "tblCarId";
+            this.tblCarId.ReadOnly = true;
+            this.tblCarId.Visible = false;
+            this.tblCarId.Width = 125;
+            // 
+            // tblCarIdNumber
+            // 
+            this.tblCarIdNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.tblCarIdNumber.DataPropertyName = "IdNumber";
+            this.tblCarIdNumber.HeaderText = "Госномер";
+            this.tblCarIdNumber.MinimumWidth = 6;
+            this.tblCarIdNumber.Name = "tblCarIdNumber";
+            this.tblCarIdNumber.ReadOnly = true;
+            this.tblCarIdNumber.Width = 101;
+            // 
+            // tblCarModel
+            // 
+            this.tblCarModel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.tblCarModel.DataPropertyName = "Model";
+            this.tblCarModel.HeaderText = "Модель";
+            this.tblCarModel.MinimumWidth = 6;
+            this.tblCarModel.Name = "tblCarModel";
+            this.tblCarModel.ReadOnly = true;
+            this.tblCarModel.Width = 87;
+            // 
+            // tblCarMileage
+            // 
+            this.tblCarMileage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.tblCarMileage.DataPropertyName = "Mileage";
+            this.tblCarMileage.HeaderText = "Пробег";
+            this.tblCarMileage.MinimumWidth = 6;
+            this.tblCarMileage.Name = "tblCarMileage";
+            this.tblCarMileage.ReadOnly = true;
+            this.tblCarMileage.Width = 84;
+            // 
+            // tblCrewId
+            // 
+            this.tblCrewId.DataPropertyName = "Id";
+            this.tblCrewId.HeaderText = "id";
+            this.tblCrewId.MinimumWidth = 6;
+            this.tblCrewId.Name = "tblCrewId";
+            this.tblCrewId.ReadOnly = true;
+            this.tblCrewId.Visible = false;
+            this.tblCrewId.Width = 125;
+            // 
+            // tblCrewTransfer
+            // 
+            this.tblCrewTransfer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.tblCrewTransfer.DataPropertyName = "Transfer";
+            this.tblCrewTransfer.HeaderText = "Трансфер";
+            this.tblCrewTransfer.MinimumWidth = 6;
+            this.tblCrewTransfer.Name = "tblCrewTransfer";
+            this.tblCrewTransfer.ReadOnly = true;
             // 
             // StartForm
             // 

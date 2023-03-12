@@ -35,7 +35,7 @@ namespace AppWinFormCRUD.UI
             ClearCar();
             ClearCrew();
             ClearPerson();
-            //UnableUpdateTxtBox();
+            UnableUpdateTxtBox();
             btnSave.Text = "Сохранить";
             btnDelete.Enabled = false;
 
@@ -70,8 +70,8 @@ namespace AppWinFormCRUD.UI
                     && dataPersonCarCrew.Columns[3].HeaderText != headerCrewTransfer)
                 {
 
-                    //ReadOnlyTxtBoxCar();
-                    //ReadOnlyTxtBoxCrew();
+                    ReadOnlyTxtBoxCar();
+                    ReadOnlyTxtBoxCrew();
 
                     person.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblPersonId"].Value);
 
@@ -92,8 +92,8 @@ namespace AppWinFormCRUD.UI
                 if (dataPersonCarCrew.Columns[1].HeaderText == headerCarIdNumber)
                 {
 
-                    //ReadOnlyTxtBoxPerson();
-                    //ReadOnlyTxtBoxCrew();
+                    ReadOnlyTxtBoxPerson();
+                    ReadOnlyTxtBoxCrew();
 
                     car.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblCarId"].Value);
 
@@ -114,8 +114,8 @@ namespace AppWinFormCRUD.UI
                 if (dataPersonCarCrew.Columns[3].HeaderText == headerCrewTransfer)
                 {
 
-                    //ReadOnlyTxtBoxPerson();
-                    //ReadOnlyTxtBoxCar();
+                    ReadOnlyTxtBoxPerson();
+                    ReadOnlyTxtBoxCar();
 
                     crew.Id = Convert.ToInt32(dataPersonCarCrew.CurrentRow.Cells["tblCrewId"].Value);
                     
@@ -164,8 +164,6 @@ namespace AppWinFormCRUD.UI
                 if (!txtPersonName.Text.Trim().Equals(""))
                 {
                     SavePerson();
-                    ClearPerson();
-                    LoadDataPerson();
                 }
                 if (!txtCarIdNumber.Text.Trim().Equals(""))
                 {
@@ -183,7 +181,7 @@ namespace AppWinFormCRUD.UI
 
             btnSave.Text = "Сохранить";
             btnDelete.Enabled = false;
-            //UnableUpdateTxtBox();
+            UnableUpdateTxtBox();
             LoadDataPersonComboBox();
             LoadDataCarComboBox();
         }
@@ -214,12 +212,24 @@ namespace AppWinFormCRUD.UI
                         } 
                     }
 
-                    if (similar) MessageBox.Show("Водитель с таким ФИО есть в базе. Уточните ФИО");
+                    if (similar)
+                    {
+                        MessageBox.Show("Водитель с таким ФИО есть в базе. Уточните ФИО");
+                        return;
+                    }
                     else
                     {
-                       cont.Persons.Add(person);
-                       cont.SaveChanges();
-                       MessageBox.Show("Данные в базу водителей успешно добавлены");
+                        if (!ValidAgeAndAgeExp().Equals(""))
+                        {
+                            MessageBox.Show(ValidAgeAndAgeExp());
+                            return;
+                        }
+                        else
+                        {
+                            cont.Persons.Add(person);
+                            cont.SaveChanges();
+                            MessageBox.Show("Данные в базу водителей успешно добавлены");
+                        }
                     }
                 }
                 else
@@ -235,15 +245,25 @@ namespace AppWinFormCRUD.UI
                             break;
                         }
                     }
-                    cont.Entry(person).State = EntityState.Modified;
-                    cont.SaveChanges();
-                    MessageBox.Show("Данные в базе водителей успешно обновлены");
+                    if (!ValidAgeAndAgeExp().Equals(""))
+                    {
+                        MessageBox.Show(ValidAgeAndAgeExp());
+                        return;
+                    }
+                    else 
+                    {
+                        cont.Entry(person).State = EntityState.Modified;
+                        cont.SaveChanges();
+                        MessageBox.Show("Данные в базе водителей успешно обновлены");
+                    }
                 }
             }
 
             if (similar1) UpdateCrew(rememberCrewNamePerson, rememberCrewIdNumberCar, rememberCrewId);
 
             person = new Person();
+            ClearPerson();
+            LoadDataPerson();
         }
 
         private void SaveCar()
@@ -478,8 +498,8 @@ namespace AppWinFormCRUD.UI
         private void txtPersonAge_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (Char.IsDigit(number)) return;
             if (Char.IsControl(number)) return;
+            if (Char.IsDigit(number)) return;
             e.Handled = true;
         }
 
@@ -605,40 +625,54 @@ namespace AppWinFormCRUD.UI
             txtCrewTransef.Text = "";
         }
 
-        //private void ReadOnlyTxtBoxPerson()
-        //{
-        //    txtPersonName.ReadOnly = true;
-        //    txtPersonAge.ReadOnly = true;
-        //    txtPersonExpAge.ReadOnly = true;
-        //}
+        private void ReadOnlyTxtBoxPerson()
+        {
+            txtPersonName.Enabled = false;
+            txtPersonAge.Enabled = false;
+            txtPersonExpAge.Enabled = false;
+        }
 
-        //private void ReadOnlyTxtBoxCar()
-        //{
-        //    txtCarIdNumber.ReadOnly = true;
-        //    txtCarModel.ReadOnly = true;
-        ////    txtCarMileage.ReadOnly = true;
-        //}
+        private void ReadOnlyTxtBoxCar()
+        {
+            txtCarIdNumber.Enabled = false;
+            txtCarModel.Enabled = false;
+            txtCarMileage.Enabled = false;
+        }
 
-        //private void ReadOnlyTxtBoxCrew()
-        //{
-        //    txtCrewPerson.DropDownStyle = ComboBoxStyle.Simple; // Need update to disabled input data and then remove
-        //    txtCrewCar.DropDownStyle = ComboBoxStyle.Simple; // Need update to disabled input data and then remove
-        //    txtCrewTransef.ReadOnly = true;
-        //}
+        private void ReadOnlyTxtBoxCrew()
+        {
+            txtCrewPerson.Enabled = false;
+            txtCrewCar.Enabled = false;
+            txtCrewTransef.Enabled = false;
+        }
 
-        //private void UnableUpdateTxtBox()
-        //{
-        //    txtPersonName.ReadOnly = false;
-        //    txtPersonAge.ReadOnly = false;
-        //    txtPersonExpAge.ReadOnly = false;
+        private void UnableUpdateTxtBox()
+        {
+            txtPersonName.Enabled = true;
+            txtPersonAge.Enabled = true;
+            txtPersonExpAge.Enabled = true;
 
-        //    txtCarIdNumber.ReadOnly = false;
-        //    txtCarModel.ReadOnly = false;
-        //    txtCarMileage.ReadOnly = false;
+            txtCarIdNumber.Enabled = true;
+            txtCarModel.Enabled = true;
+            txtCarMileage.Enabled = true;
 
-        //    txtCrewPerson.DropDownStyle = ComboBoxStyle.DropDownList;
-        //    txtCrewCar.DropDownStyle = ComboBoxStyle.DropDownList;
-        //    txtCrewTransef.ReadOnly = false;
-        //}
+            txtCrewPerson.Enabled = true; ;
+            txtCrewCar.Enabled = true; ;
+            txtCrewTransef.Enabled = true;;
+        }
+
+        private string ValidAgeAndAgeExp() 
+        {
+            if (person.Age.HasValue && person.Age < 18)
+            {
+                return "Водителю не может быть меньше 18 лет. Уточните возраст";
+            }
+            else if (person.Age.HasValue && person.ExperienceAge.HasValue
+                && !(person.Age - person.ExperienceAge >= 17))
+            {
+                return "Некорректное количество лет опыта вождения. Уточните стаж";
+            }
+            else return "";
+        }
     }
 }
